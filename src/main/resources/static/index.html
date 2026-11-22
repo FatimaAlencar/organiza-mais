@@ -10,228 +10,91 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="app-layout">
-        <aside class="sidebar">
-            <a class="brand" href="#" aria-label="Organiza+">
-                <span class="brand-mark" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" role="img">
-                        <path d="M6.5 12.5 10 16l7.5-8"></path>
-                    </svg>
-                </span>
-                <span>Organiza<span>+</span></span>
-            </a>
+<div class="app-layout">
+    <aside class="sidebar">
+        <a class="brand" href="#" aria-label="Organiza+">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M6.5 12.5 10 16l7.5-8"></path></svg>
+            </span>
+            <span>Organiza<span>+</span></span>
+        </a>
 
-            <nav class="sidebar-nav" aria-label="Navegação principal">
-                <p class="nav-title">Tarefas</p>
-                <a class="nav-item active" href="#">
-                    <span>Hoje</span>
-                    <strong>4</strong>
-                </a>
-                <a class="nav-item" href="#">
-                    <span>Próximos 7 dias</span>
-                    <strong>8</strong>
-                </a>
+        <nav class="sidebar-nav" id="nav" aria-label="Navegação principal">
+            <p class="nav-title">Tarefas</p>
+            <a class="nav-item active" href="#" data-filtro="todas"><span>Todas</span><strong id="c-todas">0</strong></a>
+            <a class="nav-item" href="#" data-filtro="hoje"><span>Hoje</span><strong id="c-hoje">0</strong></a>
+            <a class="nav-item" href="#" data-filtro="semana"><span>Próximos 7 dias</span><strong id="c-semana">0</strong></a>
 
-                <p class="nav-title section-title">Listas</p>
-                <a class="nav-item" href="#">
-                    <span><i class="list-dot home"></i>Casa</span>
-                    <strong>3</strong>
-                </a>
-                <a class="nav-item" href="#">
-                    <span><i class="list-dot work"></i>Trabalho</span>
-                    <strong>6</strong>
-                </a>
-                <a class="nav-item" href="#">
-                    <span><i class="list-dot market"></i>Mercado</span>
-                    <strong>3</strong>
-                </a>
+            <p class="nav-title section-title">Listas</p>
+            <div id="nav-listas"></div>
+        </nav>
 
-                <div class="nav-divider"></div>
-                <a class="nav-item" href="#">
-                    <span>Completas</span>
-                    <strong>23</strong>
-                </a>
-                <a class="nav-item" href="#">
-                    <span>Lixeira</span>
-                    <strong>19</strong>
-                </a>
-            </nav>
-
-            <div class="sidebar-footer">
-                <button class="sidebar-action" type="button">
-                    <span aria-hidden="true">＋</span>
-                    Nova lista
-                </button>
-                <div class="user-mini">
-                    <span class="avatar avatar-small">AS</span>
-                    <span>
-                        <strong>Ana Souza</strong>
-                        <small>Minha conta</small>
-                    </span>
-                    <span class="more" aria-hidden="true">•••</span>
-                </div>
+        <div class="sidebar-footer">
+            <button class="sidebar-action" type="button" id="btn-nova-lista">
+                <span aria-hidden="true">＋</span> Nova lista
+            </button>
+            <div class="user-mini">
+                <span class="avatar avatar-small">AS</span>
+                <span><strong>Ana Souza</strong><small>Minha conta</small></span>
+                <span class="more" aria-hidden="true">•••</span>
             </div>
-        </aside>
+        </div>
+    </aside>
 
-        <main class="main-content">
-            <header class="topbar">
-                <button class="mobile-menu" type="button" aria-label="Abrir menu">☰</button>
-                <div class="topbar-spacer"></div>
-                <button class="icon-button" type="button" aria-label="Alternar tema">◐</button>
-                <button class="icon-button notification" type="button" aria-label="Notificações">
-                    <span aria-hidden="true">♟</span>
-                    <i></i>
-                </button>
-                <button class="avatar avatar-user" type="button" aria-label="Abrir perfil">AS</button>
-            </header>
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-spacer"></div>
+            <button class="avatar avatar-user" type="button" aria-label="Perfil">AS</button>
+        </header>
 
-            <section class="content">
-                <div class="page-heading">
-                    <div>
-                        <p class="eyebrow">QUINTA-FEIRA, 12 DE JUNHO</p>
-                        <h1>Hoje</h1>
-                    </div>
-                    <button class="primary-button" type="button"><span>＋</span> Nova tarefa</button>
+        <section class="content">
+            <div class="page-heading">
+                <div>
+                    <p class="eyebrow" id="data-hoje"></p>
+                    <h1 id="titulo-pagina">Todas</h1>
                 </div>
+                <button class="primary-button" type="button" id="btn-nova-tarefa"><span>＋</span> Nova tarefa</button>
+            </div>
 
-                <form class="task-quick-add" aria-label="Adicionar tarefa">
-                    <span class="plus-icon" aria-hidden="true">＋</span>
-                    <input type="text" placeholder="Crie uma nova tarefa..." aria-label="Nome da nova tarefa">
-                    <button type="submit">Adicionar</button>
-                </form>
+            <form class="task-quick-add" id="form-rapido" aria-label="Adicionar tarefa">
+                <span class="plus-icon" aria-hidden="true">＋</span>
+                <input type="text" id="input-titulo" placeholder="Crie uma nova tarefa..." aria-label="Nome da nova tarefa" required>
+                <select id="select-lista" aria-label="Lista"></select>
+                <input type="date" id="input-data" aria-label="Data de entrega">
+                <button type="submit">Adicionar</button>
+            </form>
 
-                <div class="toolbar">
-                    <div class="view-tabs" role="tablist" aria-label="Visualização">
-                        <button class="view-tab active" type="button" role="tab">Quadro</button>
-                        <button class="view-tab" type="button" role="tab">Lista</button>
-                    </div>
-                    <button class="filter-button" type="button">
-                        <span aria-hidden="true">≡</span> Filtrar
-                    </button>
-                </div>
+            <section class="board" aria-label="Quadro de tarefas">
+                <article class="task-column" data-status="A_FAZER">
+                    <header class="column-header">
+                        <div><span class="column-indicator todo"></span><h2>A Fazer</h2><span class="task-count" id="n-A_FAZER">0</span></div>
+                        <button class="add-task" type="button" data-add="A_FAZER" aria-label="Adicionar em A Fazer">＋</button>
+                    </header>
+                    <div class="task-list" id="col-A_FAZER"></div>
+                    <button class="column-add" type="button" data-add="A_FAZER">＋ Adicionar tarefa</button>
+                </article>
 
-                <section class="board" aria-label="Quadro de tarefas">
-                    <article class="task-column">
-                        <header class="column-header">
-                            <div>
-                                <span class="column-indicator todo"></span>
-                                <h2>A Fazer</h2>
-                                <span class="task-count">3</span>
-                            </div>
-                            <button class="add-task" type="button" aria-label="Adicionar tarefa em A Fazer">＋</button>
-                        </header>
-                        <div class="task-list">
-                            <article class="task-card">
-                                <div class="task-title-row">
-                                    <button class="check-button" type="button" aria-label="Concluir tarefa"></button>
-                                    <h3>Organizar a mesa do escritório</h3>
-                                    <button class="card-menu" type="button" aria-label="Mais opções">•••</button>
-                                </div>
-                                <div class="task-meta">
-                                    <span class="tag tag-blue">Casa</span>
-                                    <span class="due-date">Hoje</span>
-                                </div>
-                            </article>
-                            <article class="task-card">
-                                <div class="task-title-row">
-                                    <button class="check-button" type="button" aria-label="Concluir tarefa"></button>
-                                    <h3>Levar o lixo para fora</h3>
-                                    <button class="card-menu" type="button" aria-label="Mais opções">•••</button>
-                                </div>
-                                <div class="task-meta">
-                                    <span class="tag tag-blue">Casa</span>
-                                </div>
-                            </article>
-                            <article class="task-card">
-                                <div class="task-title-row">
-                                    <button class="check-button" type="button" aria-label="Concluir tarefa"></button>
-                                    <h3>Planejar refeições da semana</h3>
-                                    <button class="card-menu" type="button" aria-label="Mais opções">•••</button>
-                                </div>
-                                <div class="task-meta">
-                                    <span class="tag tag-purple">Pessoal</span>
-                                    <span class="due-date">Amanhã</span>
-                                </div>
-                            </article>
-                        </div>
-                        <button class="column-add" type="button">＋ Adicionar tarefa</button>
-                    </article>
+                <article class="task-column" data-status="FAZENDO">
+                    <header class="column-header">
+                        <div><span class="column-indicator doing"></span><h2>Fazendo</h2><span class="task-count" id="n-FAZENDO">0</span></div>
+                        <button class="add-task" type="button" data-add="FAZENDO" aria-label="Adicionar em Fazendo">＋</button>
+                    </header>
+                    <div class="task-list" id="col-FAZENDO"></div>
+                    <button class="column-add" type="button" data-add="FAZENDO">＋ Adicionar tarefa</button>
+                </article>
 
-                    <article class="task-column">
-                        <header class="column-header">
-                            <div>
-                                <span class="column-indicator doing"></span>
-                                <h2>Fazendo</h2>
-                                <span class="task-count">2</span>
-                            </div>
-                            <button class="add-task" type="button" aria-label="Adicionar tarefa em Fazendo">＋</button>
-                        </header>
-                        <div class="task-list">
-                            <article class="task-card">
-                                <div class="task-title-row">
-                                    <button class="check-button" type="button" aria-label="Concluir tarefa"></button>
-                                    <h3>Preparar apresentação do projeto</h3>
-                                    <button class="card-menu" type="button" aria-label="Mais opções">•••</button>
-                                </div>
-                                <div class="task-meta">
-                                    <span class="tag tag-green">Trabalho</span>
-                                    <span class="due-date">Hoje</span>
-                                </div>
-                                <div class="progress"><span style="width: 68%"></span></div>
-                            </article>
-                            <article class="task-card">
-                                <div class="task-title-row">
-                                    <button class="check-button" type="button" aria-label="Concluir tarefa"></button>
-                                    <h3>Estudar por 2 horas</h3>
-                                    <button class="card-menu" type="button" aria-label="Mais opções">•••</button>
-                                </div>
-                                <div class="task-meta">
-                                    <span class="tag tag-purple">Pessoal</span>
-                                </div>
-                            </article>
-                        </div>
-                        <button class="column-add" type="button">＋ Adicionar tarefa</button>
-                    </article>
-
-                    <article class="task-column completed-column">
-                        <header class="column-header">
-                            <div>
-                                <span class="column-indicator done"></span>
-                                <h2>Concluídas</h2>
-                                <span class="task-count">3</span>
-                            </div>
-                            <button class="add-task" type="button" aria-label="Adicionar tarefa em Concluídas">＋</button>
-                        </header>
-                        <div class="task-list">
-                            <article class="task-card completed">
-                                <div class="task-title-row">
-                                    <button class="check-button checked" type="button" aria-label="Tarefa concluída">✓</button>
-                                    <h3>Arrumar a cama</h3>
-                                    <button class="card-menu" type="button" aria-label="Mais opções">•••</button>
-                                </div>
-                                <div class="task-meta"><span class="tag tag-blue">Casa</span></div>
-                            </article>
-                            <article class="task-card completed">
-                                <div class="task-title-row">
-                                    <button class="check-button checked" type="button" aria-label="Tarefa concluída">✓</button>
-                                    <h3>Responder e-mails</h3>
-                                    <button class="card-menu" type="button" aria-label="Mais opções">•••</button>
-                                </div>
-                                <div class="task-meta"><span class="tag tag-green">Trabalho</span></div>
-                            </article>
-                            <article class="task-card completed">
-                                <div class="task-title-row">
-                                    <button class="check-button checked" type="button" aria-label="Tarefa concluída">✓</button>
-                                    <h3>Fazer compras</h3>
-                                    <button class="card-menu" type="button" aria-label="Mais opções">•••</button>
-                                </div>
-                                <div class="task-meta"><span class="tag tag-orange">Mercado</span></div>
-                            </article>
-                        </div>
-                    </article>
-                </section>
+                <article class="task-column completed-column" data-status="CONCLUIDA">
+                    <header class="column-header">
+                        <div><span class="column-indicator done"></span><h2>Concluídas</h2><span class="task-count" id="n-CONCLUIDA">0</span></div>
+                        <button class="add-task" type="button" data-add="CONCLUIDA" aria-label="Adicionar em Concluídas">＋</button>
+                    </header>
+                    <div class="task-list" id="col-CONCLUIDA"></div>
+                    <button class="column-add" type="button" data-add="CONCLUIDA">＋ Adicionar tarefa</button>
+                </article>
             </section>
-        </main>
-    </div>
+        </section>
+    </main>
+</div>
+<script src="app.js"></script>
 </body>
 </html>

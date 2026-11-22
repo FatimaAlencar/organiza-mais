@@ -2,9 +2,13 @@ package com.example.demo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,13 +18,21 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(name = "tarefas")
 public class Tarefa {
 
+    public enum Status { A_FAZER, FAZENDO, CONCLUIDA }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String titulo;
     private String descricao;
 
-    private String nome;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.A_FAZER;
+
+    @ManyToOne
+    @JoinColumn(name = "lista_id")
+    private Lista lista;
 
     @CreationTimestamp
     @Column(name = "data_criacao", updatable = false)
@@ -52,12 +64,20 @@ public class Tarefa {
         this.descricao = descricao;
     }
 
-    public String getNome() {
-        return nome;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Lista getLista() {
+        return lista;
+    }
+
+    public void setLista(Lista lista) {
+        this.lista = lista;
     }
 
     public LocalDateTime getDataCriacao() {
@@ -75,5 +95,4 @@ public class Tarefa {
     public void setDataEntrega(LocalDate dataEntrega) {
         this.dataEntrega = dataEntrega;
     }
-
 }
